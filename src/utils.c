@@ -6,8 +6,8 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:33:24 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/04 13:34:13 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:09:14 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosopher.h"
+#include "../include/philosophers.h"

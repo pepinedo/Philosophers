@@ -6,31 +6,28 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:42:42 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/04 13:43:18 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:34:49 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosopher.h"
+#include "../include/philosophers.h"
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
 	t_data	*data;
 
 	data = ft_calloc(1, sizeof(t_data));
-	if (!parse(argc, argv, &data))
+	if (!checks(ac, av, &data))
 		return (0);
-	if (argc >= 6 && (ft_atoi(argv[5]) == 0))
+	if (ac >= 6 && (ft_atoi(av[5]) == 0))
 	{
 		printf("Philosophers has eaten 0 times\n");
 		free(data);
 		return (0);
 	}
-	else
-	{
-		data_init(&data, argc, argv);
+	init_data(&data, ac, av);
 //-----------------------------------------------------------------------------		
-		thread_init(&data);
-	}
-	finish_philo(&data);
+	// thread_init(&data);
+	// finish_philo(&data);
 	return (0);
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:10:28 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/04 13:32:18 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:09:08 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philosopher.h"
+#include "../include/philosophers.h"
 
 bool	check_times(int ac, char **av)
 {
@@ -63,7 +63,7 @@ bool	check_number_of_args(int ac, char **av)
 	return (A);
 }
 
-bool	parse(int ac, char **av, t_data **data)
+bool	checks(int ac, char **av, t_data **data)
 {
 	if (!check_number_of_args(ac, av))
 	{
