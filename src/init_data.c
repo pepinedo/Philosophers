@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:44:17 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/10 14:32:09 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:02:52 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_mutex(t_data *data)
 	pthread_mutex_init(&data->write, NULL);
 }
 
-void	forks_init(pthread_mutex_t **forks, int size)
+void	init_forks(pthread_mutex_t **forks, int size)
 {
 	int	i;
 
@@ -59,12 +59,14 @@ void	init_data(t_data **data, int ac, char **av)
 	(*data)->thread = malloc(sizeof(pthread_t) * (*data)->diners);
 	if ((*data)->thread == 0)
 		return ;
-	
 	init_mutex(*data);
-	init_forks(&(*data)->diners, data);
+	init_forks(&(*data)->forks, data);
 	if (!(*data)->diners)
 		return ;
-	
+//-----------------------------------------------
+	// init_philosophers(&(*data)->philosopher, data);
+	// if (!(*data)->philosopher)
+	// 	return ;
 	
 	
 	
