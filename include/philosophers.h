@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:51:45 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/11 18:43:42 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:15:28 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_philo	t_philo;
 typedef struct s_data
 {
 	pthread_t		*thread;
-	pthread_t		super;
+	pthread_t		master;
 	int				diners;
 	int				die_time;
 	int				eat_time;
