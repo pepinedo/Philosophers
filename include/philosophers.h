@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:51:45 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/10 13:19:10 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:43:42 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,28 @@ typedef struct s_philo
 	int				id;
 	bool			eating;
 	int				eat_times;
-	uint64_t		time_to_die;
+	uint64_t		die_time;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 }	t_philo;
+
+//--- FUNCTIONS ----
+bool		checks(int ac, char **av, t_data **data);
+bool		check_number_of_args(int ac, char **av);
+bool		check_times(int ac, char **av);
+
+void		init_data(t_data **data, int ac, char **av);
+long		get_time(void);
+void		init_mutex(t_data *data);
+void		init_forks(pthread_mutex_t **forks, int size);
+void		init_philosophers(t_philo **philosopher, t_data **data);
+
+//----- UTILS ------
+void		*ft_calloc(size_t count, size_t size);
+void		*ft_memset(void *b, int c, size_t len);
+int			ft_isdigit(int c);
+int			arg_is_number(char *arg, int i);
+long int	ft_atoi(char *str);
+
 
 #endif

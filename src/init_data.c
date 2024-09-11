@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:44:17 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/10 15:02:52 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:44:49 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,29 @@ void	init_forks(pthread_mutex_t **forks, int size)
 	}
 }
 
+void	init_philosophers(t_philo **philosopher, t_data **data)
+{
+	int	i;
+
+	i = 0;
+	*philosopher = ft_calloc((*data)->diners, sizeof(t_philo));
+	if (!(*philosopher))
+		return ;
+	while (i < (*data)->diners)
+	{
+		(*philosopher)[i].data = (*data);
+		(*philosopher)[i].id = i + 1;
+		(*philosopher)[i].l_fork = &(*data)->forks[i];
+		(*philosopher)[i].eat_times = 0;
+		(*philosopher)[i].die_time = (*data)->die_time;
+		if (i + 1 == (*data)->diners)
+			(*philosopher)[i].r_fork = &(*data)->forks[0];
+		else
+			(*philosopher)[i].r_fork = &(*data)->forks[i + 1];
+		i++;
+	}
+}
+
 void	init_data(t_data **data, int ac, char **av)
 {
 	(*data)->diners = ft_atoi(av[1]);
@@ -60,14 +83,10 @@ void	init_data(t_data **data, int ac, char **av)
 	if ((*data)->thread == 0)
 		return ;
 	init_mutex(*data);
-	init_forks(&(*data)->forks, data);
+	init_forks(&(*data)->forks, (*data)->diners);
 	if (!(*data)->diners)
 		return ;
-//-----------------------------------------------
-	// init_philosophers(&(*data)->philosopher, data);
-	// if (!(*data)->philosopher)
-	// 	return ;
-	
-	
-	
+	init_philosophers(&(*data)->philosopher, data);
+	if (!(*data)->philosopher)
+		return ;
 }

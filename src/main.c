@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:42:42 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/10 14:34:49 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:33:10 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	data = ft_calloc(1, sizeof(t_data));
 	if (!checks(ac, av, &data))
-		return (0);
+		return (1);
 	if (ac >= 6 && (ft_atoi(av[5]) == 0))
 	{
 		printf("Philosophers has eaten 0 times\n");

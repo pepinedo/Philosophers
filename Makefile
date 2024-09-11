@@ -6,7 +6,7 @@
 #    By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 14:50:06 by ppinedo-          #+#    #+#              #
-#    Updated: 2024/09/10 14:54:52 by ppinedo-         ###   ########.fr        #
+#    Updated: 2024/09/11 18:54:47 by ppinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ NAME = philosophers
 USER = ppinedo-
 B_NAME = none
 INCLUDE = include/
-LIBFT = lib/libft/
 SRC_DIR = src/
 B_SRC_DIR = src/bonus/
 OBJ_DIR = obj/
@@ -38,7 +37,7 @@ WHITE = \033[0;97m
 
 #Sources
 	
-SRC_FILES = main checks init_data utils
+SRC_FILES = main checks init_data ft_atoi ft_calloc
 
 B_SRC_FILES = 
 
@@ -53,8 +52,7 @@ OBJF = .cache_exists
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(MAKE) -C $(LIBFT) -s
-	@$(CC) -I./$(INCLUDE) $(CFLAGS) $(OBJ) -o $(NAME) -L$(LIBFT) -lft -Iinclude -ldl -lglfw -pthread -lm -lreadline
+	@$(CC) -I./$(INCLUDE) $(CFLAGS) $(OBJ) -o $(NAME) -Iinclude -ldl -lglfw -pthread -lm -lreadline
 	@echo "$(GREEN)✅$(NAME) COMPILED!✅$(DEF_COLOR)"
 
 
@@ -70,7 +68,6 @@ clean:
 fclean:	clean	
 			@rm -f $(NAME)
 			@rm -f $(B_NAME)
-			@$(MAKE) -C $(LIBFT) fclean -s
 			@echo "$(RED)Executable$(DEF_COLOR) $(NAME) $(RED)cleaned!🧼$(DEF_COLOR)"
 
 re:			fclean all
@@ -81,8 +78,7 @@ norm:
 			@echo "$(GREEN) ✅NORMINETTE OK!✅$(DEF_COLOR)"
 
 bonus: $(B_OBJ)
-			@$(MAKE) -C $(LIBFT) -s
-			@$(CC) $(CFLAGS) $(B_OBJ) -L$(LIBFT) -lft -o $(B_NAME)
+			@$(CC) $(CFLAGS) $(B_OBJ) -o $(B_NAME)
 			@echo "$(MAGENTA)$(B_NAME) ✅compiled!✅$(DEF_COLOR)"
 
 .PHONY: all clean fclean re norm bonus
