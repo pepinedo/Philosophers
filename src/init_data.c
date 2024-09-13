@@ -6,22 +6,11 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:44:17 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/11 18:44:49 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:19:37 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
-
-long	get_time(void)
-{
-	struct timeval	time;
-	long			miliseconds;
-
-	if (gettimeofday(&time, NULL))
-		return (0);
-	miliseconds = time.tv_sec * 1000 + time.tv_usec / 1000; //to miliseconds from seconds and microseconds 
-	return (miliseconds);
-}
 
 void	init_mutex(t_data *data)
 {
@@ -75,9 +64,9 @@ void	init_data(t_data **data, int ac, char **av)
 	(*data)->sleep_time = ft_atoi(av[4]);
 	(*data)->death = 0;
 	(*data)->start = get_time();
-	(*data)->max_eat = 0;
+	(*data)->full = 0;
 	if (ac == 6)
-		(*data)->max_eat = ft_atoi(av[5]);
+		(*data)->full = ft_atoi(av[5]);
 		
 	(*data)->thread = malloc(sizeof(pthread_t) * (*data)->diners);
 	if ((*data)->thread == 0)

@@ -6,13 +6,13 @@
 #    By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 14:50:06 by ppinedo-          #+#    #+#              #
-#    Updated: 2024/09/11 18:54:47 by ppinedo-         ###   ########.fr        #
+#    Updated: 2024/09/13 13:17:46 by ppinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Variables
 
-NAME = philosophers
+NAME = philo
 USER = ppinedo-
 B_NAME = none
 INCLUDE = include/
@@ -37,7 +37,7 @@ WHITE = \033[0;97m
 
 #Sources
 	
-SRC_FILES = main checks init_data ft_atoi ft_calloc
+SRC_FILES = main checks init_data algorithm orchestrator actions free_all utils ft_atoi ft_calloc
 
 B_SRC_FILES = 
 

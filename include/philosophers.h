@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:51:45 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/11 19:15:28 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:18:46 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define CYAN		"\x1b[36m"
 # define WHITE		"\033[37m"
 # define BOLD		"\033[1m"
+
 # define RESET		"\x1b[0m"
 # define CLEAR		"\033[2J"
 
@@ -38,12 +39,12 @@ typedef struct s_philo	t_philo;
 typedef struct s_data
 {
 	pthread_t		*thread;
-	pthread_t		master;
+	pthread_t		orchestrator;  
 	int				diners;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
-	int				max_eat;
+	int				full;
 	int				death;
 	uint64_t		start;
 	t_philo			*philosopher;
@@ -69,10 +70,23 @@ bool		check_number_of_args(int ac, char **av);
 bool		check_times(int ac, char **av);
 
 void		init_data(t_data **data, int ac, char **av);
-long		get_time(void);
 void		init_mutex(t_data *data);
 void		init_forks(pthread_mutex_t **forks, int size);
 void		init_philosophers(t_philo **philosopher, t_data **data);
+
+int			algorithm(t_data **data);
+void		*orchestrator(void *arg);
+void		death_checker(t_data *data, t_philo **current_philo);
+void		finish_write(int death, t_philo *philo, int max_eat);
+void		*actions(void *arg);
+int			take_forks(t_philo **philo);
+int			even_philo(t_philo **philo);
+int			odd_philo(t_philo **philo);
+int			eat(t_philo **philo);
+void		philo_update(t_philo **philo);
+
+void		free_all(t_data **data);
+void		end_mutex(t_data **data);
 
 //----- UTILS ------
 void		*ft_calloc(size_t count, size_t size);
@@ -80,6 +94,10 @@ void		*ft_memset(void *b, int c, size_t len);
 int			ft_isdigit(int c);
 int			arg_is_number(char *arg, int i);
 long int	ft_atoi(char *str);
-
+long		get_time(void);
+int			writer(t_philo **philo, char *str);
+long		ft_usleep(int time);
+void		free_forks(t_philo **philo, int flag);
+long		get_time(void);
 
 #endif

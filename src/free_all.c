@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 11:42:42 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 13:05:20 by ppinedo-         ###   ########.fr       */
+/*   Created: 2024/09/13 13:04:07 by ppinedo-          #+#    #+#             */
+/*   Updated: 2024/09/13 13:15:35 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	main(int ac, char **av)
+void	end_mutex(t_data **data)
 {
-	t_data	*data;
+	int	i;
 
-	data = ft_calloc(1, sizeof(t_data));
-	if (!checks(ac, av, &data))
-		return (1);
-	if (ac >= 6 && (ft_atoi(av[5]) == 0))
+	i = 0;
+	while (i < (*data)->diners)
 	{
-		printf("Philosophers has eaten 0 times\n");
-		free(data);
-		return (0);
+		pthread_mutex_destroy(&(*data)->forks[i]);
+		i++;
 	}
-	init_data(&data, ac, av);	
-	algorithm(&data);
-	free_all(&data);
-	return (0);
+	pthread_mutex_destroy(&(*data)->lock);
+	pthread_mutex_destroy(&(*data)->write);
+	free((*data)->forks);
+}
+
+void	free_all(t_data **data)
+{
+	end_mutex(data);
+	free((*data)->thread);
+	free((*data)->philosopher);
+	free(*data);
 }
