@@ -6,12 +6,12 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:51:45 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 13:18:46 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:09:14 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHER_H
-# define PHILOSOPHER_H
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
 # include <stdbool.h>
 # include <stdlib.h>
@@ -39,8 +39,8 @@ typedef struct s_philo	t_philo;
 typedef struct s_data
 {
 	pthread_t		*thread;
-	pthread_t		orchestrator;  
-	int				diners;
+	pthread_t		orchestrator;
+	int				n_philos;
 	int				die_time;
 	int				eat_time;
 	int				sleep_time;
@@ -65,7 +65,7 @@ typedef struct s_philo
 }	t_philo;
 
 //--- FUNCTIONS ----
-bool		checks(int ac, char **av, t_data **data);
+bool		check_args(int ac, char **av, t_data **data);
 bool		check_number_of_args(int ac, char **av);
 bool		check_times(int ac, char **av);
 

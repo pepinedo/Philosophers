@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:01:13 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 13:17:30 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:29:33 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	*orchestrator(void *arg)
 		data->death = 3; // caso de error
 		return (NULL);
 	}
-	while (data->death == 0) // mientras que ningun filosofo este muerto, ejecuta el orquestador
+	while (data->death == 0) // mientras que ningun filosofo este muerto, ejecuta el comprobador de muertos
 		death_checker(data, &check_dead);  
 	pthread_mutex_unlock(&data->lock);
 	j = 0;
-	while (j < data->diners) // esperar a que todos los filosofos terminen
+	while (j < data->n_philos) // esperar a que todos los filosofos terminen
 	{
 		pthread_join(data->thread[j], NULL);
 		j++;
@@ -66,12 +66,12 @@ int	algorithm(t_data **data)
 		return (1);
 	if (pthread_create(&(*data)->orchestrator, NULL, &orchestrator, *data)) // hilo del orquestador
 		return (1);
-	while (i < (*data)->diners && (*data)->death == 0)  //crea tantos hilos como philosophos se han especificado
+	while (i < (*data)->n_philos && (*data)->death == 0)  //crea tantos hilos como filosofos se han especificado
 	{
 		pthread_create(&(*data)->thread[i], NULL, &actions, &(*data)->philosopher[i]);
 		i++;
 	}
-	pthread_mutex_unlock(&(*data)->lock); 
+	pthread_mutex_unlock(&(*data)->lock); //desbloqueo estandar
 	pthread_join((*data)->orchestrator, NULL); //esperar a que el orquestador termine
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:48:44 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 12:24:17 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:43:18 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	finish_write(int death, t_philo *philo, int max_eat)
 		}
 	}
 	if (death == 2)
-		printf(GREEN"The philosophers has eaten %d times.\n"RESET, max_eat);
+		printf(GREEN"The philosophers has eaten %d times. 🍾\n"RESET, max_eat);
 	if (death == 3)
 		printf(RED"ERROR:\nMutex failure.\n"RESET);
 }
@@ -48,7 +48,7 @@ void	death_checker(t_data *data, t_philo **current_philo)
 
 	i = 0;
 	j = 0;
-	while (i < data->diners && data->death == 0) //mientras que no haya ninguno muerto (data->death == 1)
+	while (i < data->n_philos && data->death == 0) //mientras que no haya ninguno muerto (data->death == 1)
 	{
 		current_time = get_time() - data->start; //calculas cuanto tiempo lleva sin comer
 		(*current_philo) = &data->philosopher[i];
@@ -59,7 +59,7 @@ void	death_checker(t_data *data, t_philo **current_philo)
 		}
 		if ((*current_philo)->eat_times >= data->full) // si ha comido lo suficiente, al siguiente
 			j++;
-		if (j == data->diners && data->full > 0) // si todos han comido, fin
+		if (j == data->n_philos && data->full > 0) // si todos han comido, fin
 		{
 			data->death = 2; //caso de todos han comido
 			break ;

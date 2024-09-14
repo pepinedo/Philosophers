@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:42:42 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 13:05:20 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:28:53 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,10 @@ int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	data = ft_calloc(1, sizeof(t_data));
-	if (!checks(ac, av, &data))
+	data = malloc(sizeof(t_data));
+	if (!check_args(ac, av, &data))
 		return (1);
-	if (ac >= 6 && (ft_atoi(av[5]) == 0))
-	{
-		printf("Philosophers has eaten 0 times\n");
-		free(data);
-		return (0);
-	}
-	init_data(&data, ac, av);	
+	init_data(&data, ac, av);
 	algorithm(&data);
 	free_all(&data);
 	return (0);

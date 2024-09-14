@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:26:32 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 13:54:32 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:52:37 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	odd_philo(t_philo **philo)
 		pthread_mutex_unlock((*philo)->l_fork);
 		return (0);
 	}
-	if ((*philo)->data->diners == 1) // ????
+	if ((*philo)->data->n_philos == 1) // ????
 		ft_usleep((*philo)->data->die_time + 1);
 	if (writer(philo, "has taken left fork"))   //printf
 		return (1);
-	if ((*philo)->data->diners >= 1) // bloquea el tenedor derecho si hay mas de un philosopho
+	if ((*philo)->data->n_philos >= 1) // bloquea el tenedor derecho si hay mas de un philosopho
 	{
 		if (pthread_mutex_lock((*philo)->r_fork))
 			return (1);

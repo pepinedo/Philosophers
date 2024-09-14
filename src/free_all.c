@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:04:07 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 13:15:35 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/13 16:54:17 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	end_mutex(t_data **data)
 	int	i;
 
 	i = 0;
-	while (i < (*data)->diners)
+	while (i < (*data)->n_philos)
 	{
 		pthread_mutex_destroy(&(*data)->forks[i]);
 		i++;

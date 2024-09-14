@@ -6,7 +6,7 @@
 #    By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/10 14:50:06 by ppinedo-          #+#    #+#              #
-#    Updated: 2024/09/13 13:17:46 by ppinedo-         ###   ########.fr        #
+#    Updated: 2024/09/14 13:06:35 by ppinedo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ WHITE = \033[0;97m
 
 #Sources
 	
-SRC_FILES = main checks init_data algorithm orchestrator actions free_all utils ft_atoi ft_calloc
+SRC_FILES = main check_args init_data algorithm orchestrator actions free_all utils ft_atoi ft_calloc
 
 B_SRC_FILES = 
 
