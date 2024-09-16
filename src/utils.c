@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 11:39:13 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 13:55:14 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:24:49 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ void	philo_update(t_philo **philo)
 	(*philo)->die_time = get_time() + (*philo)->data->die_time - (*philo)->data->start; //subir la stamina
 }
 
-void	free_forks(t_philo **philo, int flag)
+void	free_forks(t_philo **philo)
 {
-	if (flag == 1)
-		usleep((*philo)->data->die_time * 1000);
-	pthread_mutex_unlock((*philo)->l_fork);
-	pthread_mutex_unlock((*philo)->r_fork);
+	if ((*philo)->data->n_philos != 1)
+	{	
+		pthread_mutex_unlock((*philo)->l_fork);
+		pthread_mutex_unlock((*philo)->r_fork);
+	}
+	else
+		((*philo)->data->death = 1);
+		
 }
 
 long	get_time(void)

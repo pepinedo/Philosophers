@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:51:45 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/14 13:09:14 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:17:48 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_philo
 bool		check_args(int ac, char **av, t_data **data);
 bool		check_number_of_args(int ac, char **av);
 bool		check_times(int ac, char **av);
+bool		check_special_cases(int ac, char **av);
 
 void		init_data(t_data **data, int ac, char **av);
 void		init_mutex(t_data *data);
@@ -97,7 +98,7 @@ long int	ft_atoi(char *str);
 long		get_time(void);
 int			writer(t_philo **philo, char *str);
 long		ft_usleep(int time);
-void		free_forks(t_philo **philo, int flag);
+void		free_forks(t_philo **philo);
 long		get_time(void);
 
 #endif

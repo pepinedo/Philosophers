@@ -6,29 +6,17 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:48:44 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 17:43:18 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:53:16 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
 
-int	p_write(t_philo **philo, char *str)
-{
-	unsigned long	time;
-
-	if (pthread_mutex_lock(&(*philo)->data->write)) //bloquear para uso exclusivo del orquestador
-		return (1);
-	time = get_time() - (*philo)->data->start; // calcular cuanto ha tardado en morir
-	printf(YELLOW"%lu"RESET" %d %s\n", time, (*philo)->id, str); 
-	pthread_mutex_unlock(&(*philo)->data->write); // desbloquar
-	return (0);
-}
-
 void	finish_write(int death, t_philo *philo, int max_eat)
 {
 	if (death == 1)
 	{
-		if (p_write(&philo, RED"DIED."RESET)) // si falla es que ha habido un error en el mutex
+		if (writer(&philo, RED"DIED."RESET)) // si falla es que ha habido un error en el mutex
 		{
 			death = 3; 
 			philo->data->death = 3;
@@ -66,4 +54,30 @@ void	death_checker(t_data *data, t_philo **current_philo)
 		}
 		i++;
 	}
+}
+
+void	*orchestrator(void *arg)
+{
+	t_data		*data;
+	t_philo		*check_dead;
+	int			j;
+
+	data = (t_data *)arg;
+	check_dead = NULL;
+	// if (pthread_mutex_lock(&data->lock))
+	// {
+	// 	data->death = 3; // caso de error del mutex
+	// 	return (NULL);
+	// }
+	while (data->death == 0) // mientras que ningun filosofo este muerto, ejecuta el comprobador de muertos
+		death_checker(data, &check_dead);  
+	// pthread_mutex_unlock(&data->lock);
+	j = 0;
+	while (j < data->n_philos) // esperar a que todos los filosofos terminen
+	{
+		pthread_join(data->thread[j], NULL);
+		j++;
+	}
+	finish_write(data->death, check_dead, data->full); // escribir el final
+	return (NULL);
 }

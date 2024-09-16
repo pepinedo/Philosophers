@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:26:32 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 16:52:37 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:39:27 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ int	even_philo(t_philo **philo)
 
 int	take_forks(t_philo **philo)
 {
+	if ((*philo)->data->n_philos == 1)  // Caso especial: solo un filósofo
+	{
+		pthread_mutex_lock((*philo)->l_fork); // Tomará su único tenedor
+		if (writer(philo, "has taken left fork"))
+			return (1);
+		ft_usleep((*philo)->data->die_time); // Esperar hasta que "muera"
+		pthread_mutex_unlock((*philo)->l_fork); // Liberar el tenedor
+		(*philo)->data->death = 1;
+		return (0);  // No puede comer, solo espera su muerte
+	}
 	if ((*philo)->data->death != 0)
 		return (0);
 	if ((*philo)->id % 2 == 0) //comprobar si es par o impar, para evitar conflictos y deadlocks.
@@ -86,18 +96,18 @@ int	eat(t_philo **philo)
 {
 	if ((*philo)->data->death != 0) //si alguno ha muerto, a soltar tenedores
 	{
-		free_forks(philo, 0);
+		free_forks(philo);
 		return (0);
 	}
 	philo_update(philo); //la comilona en si
 	if ((*philo)->data->death != 0) // si alguno ha muerto, a soltar tenedores
 	{
-		free_forks(philo, 0);
+		free_forks(philo);
 		return (0);
 	}
 	if (writer(philo, GREEN"is eating"RESET))
 		return (1);
-	free_forks(philo, 1); // ya ha comido, asi que a soltar tenedores
+	free_forks(philo); // ya ha comido, asi que a soltar tenedores
 	if ((*philo)->data->death != 0) // si alguno ha muerto, fuera
 		return (0);
 	if (writer(philo, BLUE"is sleeping"RESET)) // duerme

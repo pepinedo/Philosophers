@@ -6,11 +6,21 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:10:28 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/14 13:12:16 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:20:10 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
+
+bool	check_special_cases(int ac, char **av)
+{
+	if (ac >= 6 && (ft_atoi(av[5]) == 0))
+	{
+		printf("Philosophers has eaten 0 times\n");
+		return (false);
+	}
+	return (true);
+}
 
 bool	check_times(int ac, char **av)
 {
@@ -65,21 +75,16 @@ bool	check_number_of_args(int ac, char **av)
 
 bool	check_args(int ac, char **av, t_data **data)
 {
+	bool	flag;
+
+	flag = true;
 	if (!check_number_of_args(ac, av))
-	{
+		flag = false;
+	else if(!check_times(ac, av))
+		flag = false;
+	else if (!check_special_cases(ac, av))
+		flag = false;
+	if (!flag)
 		free(*data);
-		return (false);
-	}
-	if (!check_times(ac, av))
-	{
-		free(*data);
-		return (false);
-	}
-	if (ac >= 6 && (ft_atoi(av[5]) == 0))
-	{
-		printf("Philosophers has eaten 0 times\n");
-		free(*data);
-		return (false);
-	}
-	return (true);
+	return (flag);
 }

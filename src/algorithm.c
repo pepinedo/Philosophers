@@ -6,53 +6,27 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 19:01:13 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/13 17:29:33 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:06:37 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosophers.h"
-
-void	*orchestrator(void *arg)
-{
-	t_data		*data;
-	t_philo		*check_dead;
-	int			j;
-
-	data = (t_data *)arg;
-	check_dead = NULL;
-	if (pthread_mutex_lock(&data->lock))
-	{
-		data->death = 3; // caso de error
-		return (NULL);
-	}
-	while (data->death == 0) // mientras que ningun filosofo este muerto, ejecuta el comprobador de muertos
-		death_checker(data, &check_dead);  
-	pthread_mutex_unlock(&data->lock);
-	j = 0;
-	while (j < data->n_philos) // esperar a que todos los filosofos terminen
-	{
-		pthread_join(data->thread[j], NULL);
-		j++;
-	}
-	finish_write(data->death, check_dead, data->full); // escribir el final
-	return (NULL);
-}
 
 void	*actions(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	ft_usleep(5); //utils
-	philo->die_time = get_time() + philo->data->die_time - philo->data->start;
+	ft_usleep(5);
 	while (philo->data->death == 0) //sus acciones (coger tenedores, comer, dormir)
 	{
+		philo->die_time = get_time() + philo->data->die_time - philo->data->start;
 		if (philo->data->death == 0 && take_forks(&philo)) //coger tenedores
 			philo->data->death = 3;
 		if (philo->data->death == 0 && eat(&philo)) // comer
 			philo->data->death = 3;
 		if (philo->data->death == 0 && philo->id % 2 != 0) // si es par, breve pausa para evitar conflictos
-			ft_usleep(10);
+			ft_usleep(100);
 	}
 	return (NULL);
 }
