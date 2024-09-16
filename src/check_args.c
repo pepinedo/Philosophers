@@ -6,7 +6,7 @@
 /*   By: ppinedo- <ppinedo-@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:10:28 by ppinedo-          #+#    #+#             */
-/*   Updated: 2024/09/16 13:20:10 by ppinedo-         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:50:38 by ppinedo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	check_args(int ac, char **av, t_data **data)
 	flag = true;
 	if (!check_number_of_args(ac, av))
 		flag = false;
-	else if(!check_times(ac, av))
+	else if (!check_times(ac, av))
 		flag = false;
 	else if (!check_special_cases(ac, av))
 		flag = false;
