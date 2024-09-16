@@ -26,10 +26,10 @@ The goal of this project is to develop a solution that avoids race conditions, d
 Clone this repository:
 
 ```sh
-git clone git@github.com:saroca-f/philosophers.git
+git clone git@github.com:pepinedo/philosophers.git
 cd philosophers
 ```
-Compila el proyecto usando Make:
+Compile it using Make:
 
 ```sh
 Make
